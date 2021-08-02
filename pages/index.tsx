@@ -11,14 +11,11 @@ import {
     Tooltip,
     SimpleGrid,
     Spacer,
-    chakra
 } from "@chakra-ui/react"
-import {ExternalLinkIcon, Icon} from '@chakra-ui/icons'
-import {GiBrazilFlag} from "react-icons/gi";
+import {Icon} from '@chakra-ui/icons'
 import {BiHomeHeart} from "react-icons/bi";
 import {AiFillLinkedin, AiOutlineGithub} from "react-icons/ai";
 import {ImBlog} from "react-icons/im";
-import {Span} from "next/dist/telemetry/trace";
 import TextBold from "../components/TextBold";
 
 export default function Home() {
