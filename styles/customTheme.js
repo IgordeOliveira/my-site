@@ -52,6 +52,27 @@ const customTheme = extendTheme({
         "8xl": "6rem",
         "9xl": "8rem",
     },
+    components: {
+        Link: {
+            baseStyle: {
+                _hover:{
+                    textDecoration: "none"
+                }
+            }
+        },
+        Button: {
+            variants: {
+                outline: {
+                    border: 0,
+                    height: "2.1rem",
+                    _hover: {
+                        bg: "white",
+                        color: "gray.background"
+                    }
+                }
+            },
+        }
+    }
 })
 export default customTheme
 

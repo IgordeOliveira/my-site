@@ -8,7 +8,10 @@ import {
     Link,
     Button,
     Stack,
-    SimpleGrid, Spacer,
+    Tooltip,
+    SimpleGrid,
+    Spacer,
+    chakra
 } from "@chakra-ui/react"
 import {ExternalLinkIcon, Icon} from '@chakra-ui/icons'
 import {GiBrazilFlag} from "react-icons/gi";
@@ -55,19 +58,25 @@ export default function Home() {
                         <TextBold> React</TextBold>.
                     </Text>
                     <Text fontSize="sm" mt={1}>
-                        I also had a little experience with Vue.JS, Gatsby and Gitlab CI.
+                        I also had a little experience with Vue.JS, Gatsby, NextJS and Gitlab CI.
                     </Text>
                     <Spacer/>
-                    <Stack direction="row" spacing={3}>
-                        <Button leftIcon={<ImBlog/>} variant="outline" fontSize="2md">
-                            Blog
-                        </Button>
-                        <Button leftIcon={<AiFillLinkedin/>}  variant="outline" fontSize="2md">
-                            LinkedIn
-                        </Button>
-                        <Button leftIcon={<AiOutlineGithub/>}  variant="outline" fontSize="2md">
-                            Github
-                        </Button>
+                    <Stack direction="row" spacing={3}>.
+                        <Tooltip hasArrow label="I'm working on it..." bg="gray.700" color="white">
+                            <Button leftIcon={<ImBlog/>} variant="outline" fontSize="2md">
+                                Blog
+                            </Button>
+                        </Tooltip>
+                        <Link href="https://www.linkedin.com/in/igordeeoliveira/" isExternal>
+                            <Button leftIcon={<AiFillLinkedin/>}  variant="outline" fontSize="2md">
+                                LinkedIn
+                            </Button>
+                        </Link>
+                        <Link href="https://github.com/IgordeOliveira" isExternal>
+                            <Button leftIcon={<AiOutlineGithub/>}  variant="outline" fontSize="2md">
+                                Github
+                            </Button>
+                        </Link>
                     </Stack>
                 </Flex>
             </SimpleGrid>
