@@ -42,7 +42,7 @@ export default function Home() {
                     </Flex>
                 </Box>
                 <Flex direction="column">
-                    <Text fontSize="md" >Hi, I'm a software developer :) </Text>
+                    <Text fontSize="md" >Hi, I&apos;m a software developer :) </Text>
                     <Text fontSize="sm" mt={1.5}>Currently working at {" "}
                         <Link href="https://www.trustly.net/us" isExternal color="#0ee06e">
                             <TextBold>Trustly</TextBold>
@@ -50,7 +50,7 @@ export default function Home() {
                         .
                     </Text>
                     <Text fontSize="sm" mt={1}>
-                        In my current job, I use <TextBold>java and web scraping techniques</TextBold>, but I've worked a lot
+                        In my current job, I use <TextBold>java and web scraping techniques</TextBold>, but I&apos;ve worked a lot
                         with <TextBold>Laravel</TextBold>, <TextBold>NodeJS</TextBold> and
                         <TextBold> React</TextBold>.
                     </Text>
