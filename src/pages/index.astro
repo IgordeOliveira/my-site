@@ -1,0 +1,54 @@
+---
+import BlogPostsList from "../components/BlogPostsList.astro";
+import MyRepoList from "../components/MyRepoList.astro";
+import Profile from "../components/Profile.astro";
+import Layout from "../layouts/Layout.astro";
+
+const response = await fetch("https://api.github.com/graphql", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `bearer ${import.meta.env.GITHUB_TOKEN}`,
+  },
+  body: JSON.stringify({
+    query: `
+	  {
+      user(login: "igordeoliveira") {
+        avatarUrl,
+        pinnedItems(first: 10, types: REPOSITORY) {
+          nodes {
+            ... on Repository {
+            name
+            description
+            updatedAt
+            url
+            }
+          }
+          }
+        }
+      }
+    `
+  }),
+});
+
+const json = await response.json();
+const userData = json.data.user;
+---
+<Layout title="Igor Oliveira | Software Developer">
+  <main class="container mx-auto flex h-screen">
+    <div class="grid grid-cols-2 gap-2 m-auto">
+      <div class="grid gap-2 max-w-lg">
+        <div class="bg-white/10 backdrop-filter backdrop-blur-sm border border-sky-50/20 rounded">
+          <Profile avatarUrl={userData.avatarUrl}/>
+        </div>
+        <div class="bg-white/10 backdrop-filter backdrop-blur-sm border border-sky-50/20 rounded">
+          <MyRepoList repos={userData.pinnedItems.nodes}/>
+        </div>
+      </div>
+      <div class="bg-white/10 backdrop-filter backdrop-blur-sm border border-sky-50/20 rounded">
+        <BlogPostsList />
+      </div>
+    </div>
+    
+  </main>
+</Layout>
