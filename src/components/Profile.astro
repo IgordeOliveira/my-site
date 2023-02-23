@@ -4,23 +4,24 @@ const { avatarUrl } = Astro.props;
 const skills = ['Full Stack', 'Javascript', 'Build Solutions', 'CI/CD', 'Docker', 'Laravel', 'Java' ]
 ---
 
-<div class="relative ">
+<div class="relative">
     <div class="flex">
         <img
-            class="rounded-full absolute -top-16 w-32 h-32 border-4 border-primary/60"
+            class="rounded-full absolute -top-16 w-32 h-32 border-4 border-primary/60
+            max-md:w-28 max-md:h-28 max-md:-top-12"
             src={avatarUrl}
             alt="Igor Oliveira photo"
         />
     </div>
     <div class="flex justify-between p-1 text-neutral">
-        <div class="ml-[8.5rem] typewriter">
-            <h3 class="font-normal">Hi there 👋</h3>
+        <div class="ml-[8.5rem] max-md:ml-[7.7rem]">
+            <h3 class="font-normal max-md:text-sm">Hi there 👋</h3>
             <h1 class="font-normal font-mono">I`m Igor Oliveira</h1>
         </div>
-        <div class="flex-col">
-            <a class="fill-neutral hover:fill-accent-focus" href="https://www.linkedin.com/in/igordeeoliveira/">
+        <div class="max-md:flex max-md:gap-2">
+            <a class="fill-neutral hover:fill-accent-focus" href="https://github.com/IgordeOliveira">
                 <svg
-                    class="h-6 w-6"
+                    class="h-6 w-6 max-md:h-8  max-md:w-8 max-lg:mb-1"
                     enable-background="new -1163 1657.697 56.693 56.693"
                     height="56.693px"
                     id="Layer_1"
@@ -52,9 +53,9 @@ const skills = ['Full Stack', 'Javascript', 'Build Solutions', 'CI/CD', 'Docker'
                     ></svg
                 >
             </a>
-            <a class="fill-neutral hover:fill-accent-focus" href="https://github.com/IgordeOliveira">
+            <a class="fill-neutral hover:fill-accent-focus" href="https://www.linkedin.com/in/igordeeoliveira/">
                 <svg
-                    class="h-6 w-6"
+                    class="h-6 w-6  max-md:h-8  max-md:w-8"
                     enable-background="new 0 0 56.693 56.693"
                     height="56.693px"
                     id="Layer_1"
@@ -75,7 +76,7 @@ const skills = ['Full Stack', 'Javascript', 'Build Solutions', 'CI/CD', 'Docker'
             </a>
         </div>
     </div>
-    <div class="m-5 flex-auto">
+    <div class="m-5 flex-auto max-md:mt-4">
         {skills.map((skill, index) => <div class:list={['badge', 'badge-md', 'mr-1', {'badge-secondary': index % 2 === 0}, {'badge-primary': index % 2 !== 0}]}>{skill}</div>)}
     </div>
 </div>
