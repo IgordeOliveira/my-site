@@ -1,8 +1,6 @@
 ---
 import '@fontsource/fira-sans';
 import '@fontsource/dejavu-mono';
-import { GoogleAnalytics } from 'astro-analytics';
-
 
 export interface Props {
 	title: string;
@@ -17,7 +15,26 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-		<GoogleAnalytics id="G-7FNDD4G0GK" />
+		<script>
+			(function(a,b,c){var d=a.history,e=document,f=navigator||{},g=localStorage,
+			h=encodeURIComponent,i=d.pushState,k=function(){return Math.random().toString(36)},
+			l=function(){return g.cid||(g.cid=k()),g.cid},m=function(r){var s=[];for(var t in r)
+			r.hasOwnProperty(t)&&void 0!==r[t]&&s.push(h(t)+"="+h(r[t]));return s.join("&")},
+			n=function(r,s,t,u,v,w,x){var z="https://www.google-analytics.com/collect",
+			A=m({v:"1",ds:"web",aip:c.anonymizeIp?1:void 0,tid:b,cid:l(),t:r||"pageview",
+			sd:c.colorDepth&&screen.colorDepth?screen.colorDepth+"-bits":void 0,dr:e.referrer||
+			void 0,dt:e.title,dl:e.location.origin+e.location.pathname+e.location.search,ul:c.language?
+			(f.language||"").toLowerCase():void 0,de:c.characterSet?e.characterSet:void 0,
+			sr:c.screenSize?(a.screen||{}).width+"x"+(a.screen||{}).height:void 0,vp:c.screenSize&&
+			a.visualViewport?(a.visualViewport||{}).width+"x"+(a.visualViewport||{}).height:void 0,
+			ec:s||void 0,ea:t||void 0,el:u||void 0,ev:v||void 0,exd:w||void 0,exf:"undefined"!=typeof x&&
+			!1==!!x?0:void 0});if(f.sendBeacon)f.sendBeacon(z,A);else{var y=new XMLHttpRequest;
+			y.open("POST",z,!0),y.send(A)}};d.pushState=function(r){return"function"==typeof d.onpushstate&&
+			d.onpushstate({state:r}),setTimeout(n,c.delay||10),i.apply(d,arguments)},n(),
+			a.ma={trackEvent:function o(r,s,t,u){return n("event",r,s,t,u)},
+			trackException:function q(r,s){return n("exception",null,null,null,null,r,s)}}})
+			(window,"G-7FNDD4G0GK",{anonymizeIp:true,colorDepth:true,characterSet:true,screenSize:true,language:true});
+		  </script>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
@@ -26,7 +43,7 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style>
-	body {
+	html {
 		background-color: #2B2D42;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%232B2D42' cx='50' cy='0' r='50'/%3E%3Cg fill='%232f3248' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%2333364e' cx='50' cy='100' r='50'/%3E%3Cg fill='%23383b54' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%233c405a' cx='50' cy='200' r='50'/%3E%3Cg fill='%23404560' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23444a66' cx='50' cy='300' r='50'/%3E%3Cg fill='%23494f6c' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%234d5472' cx='50' cy='400' r='50'/%3E%3Cg fill='%23515a78' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%23565f7e' cx='50' cy='500' r='50'/%3E%3Cg fill='%235a6484' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f6a8a' cx='50' cy='600' r='50'/%3E%3Cg fill='%23636f90' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23687596' cx='50' cy='700' r='50'/%3E%3Cg fill='%236e7b9a' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%2374819e' cx='50' cy='800' r='50'/%3E%3Cg fill='%237a87a2' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23818da6' cx='50' cy='900' r='50'/%3E%3Cg fill='%238793aa' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%238D99AE' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
 		background-attachment: fixed;
