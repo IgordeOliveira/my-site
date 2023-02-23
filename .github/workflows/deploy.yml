@@ -17,9 +17,14 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: production
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
+      - name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env  
       - name: Install, build, and upload
         uses: withastro/action@v0
 
