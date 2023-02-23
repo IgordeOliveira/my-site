@@ -1,7 +1,17 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-	theme: {},
+	theme: {
+		extend: {
+		  fontFamily: {
+			sans: ["Fira Sans", ...defaultTheme.fontFamily.sans],
+			mono: ["DejaVu Mono", ...defaultTheme.fontFamily.mono],
+		  },
+		},
+	  },
 	plugins: [
 		require('@tailwindcss/typography'),
 		require("daisyui"),
@@ -9,8 +19,18 @@ module.exports = {
 
 	],
 	daisyui: {
-		themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"],
-	  },
-	
-	
+		themes: [
+			{
+				dark: {
+				  ...require("daisyui/src/colors/themes")["[data-theme=corporate]"],
+
+				//   primary: "#4361ee",
+				//   secondary: "#edf2f4",
+				  accent: "#2B2D42",
+				  neutral: "#dee2e6",
+				//   "base-100": "#edf2f4",
+				},
+			  },
+		],
+	}
 }

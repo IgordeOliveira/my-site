@@ -12,8 +12,11 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^3.0.0",
+    "@fontsource/dejavu-mono": "^4.5.4",
+    "@fontsource/fira-sans": "^4.5.10",
     "astro": "^2.0.2",
     "daisyui": "^2.49.0",
+    "dayjs": "^1.11.7",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss": "^3.2.4"
   },

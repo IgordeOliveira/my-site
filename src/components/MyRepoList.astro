@@ -7,16 +7,16 @@ const { repos } = Astro.props;
 >
   <div class="flex items-center justify-between mb-3">
     <h5
-      class="font-semibold drop-shadow-md"
+      class="font-semibold font-mono text-white/90"
     >
       My Repositories
     </h5>
     <a
       href="https://github.com/IgordeOliveira?tab=repositories"
       target="_blank"
-      class="btn btn-xs btn-outline"
+      class="btn btn-xs btn-primary"
     >
-      View all
+      View all →
     </a>
   </div>
   <ul class="my-4 space-y-3">
@@ -26,7 +26,7 @@ const { repos } = Astro.props;
           <a
             href={repo.url}
             target="_blank"
-            class="flex items-center p-2 text-base font-bold text-gray-900 rounded-lg bg-sky-50/90 hover:bg-gray-100 group hover:shadow"
+            class="flex items-center p-2 font-bold rounded-sm bg-neutral-50/90 hover:translate-x-1 transition ease-in-out delay-50"
           >
             <div class="flex flex-col pl-2">
               <h1 class="col-2" class="font-semibold">
