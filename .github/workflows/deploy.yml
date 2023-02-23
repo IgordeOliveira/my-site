@@ -26,6 +26,9 @@ jobs:
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env  
       - name: Install, build, and upload
+        env:
+          TOKEN_GITHUBAPI: ${{ secrets.TOKEN_GITHUBAPI }}
+          BLOG_URL: ${{ secrets.BLOG_URL }}
         uses: withastro/action@v0
 
   deploy:
