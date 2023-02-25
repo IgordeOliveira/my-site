@@ -33,25 +33,27 @@ const posts = responseJson.data.user.publication.posts.map(post => {
     <a href={import.meta.env.BLOG_URL} target="_blank" class="btn btn-xs btn-primary"> View all →</a>
   </div>
   <ol
-    class="relative border-l border-sky-50 overflow-y-auto max-h-[35rem] snap-y"
+    class="overflow-y-auto max-h-[35rem] snap-y"
   >
     {
-      posts.map((post) => (
-        <li class="mb-3 ml-5">
-          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+      posts.map((post: { dateAdded: String; title: String; brief: String; slug: String; }) => (
+        <li class="pl-4 mb-4 ">
+          <div class="absolute w-3 h-3 bg-gray-400 rounded-full mt-1.5 ml-[-1.3rem]">
+          </div>
           <time class="mb-1 text-sm font-normal leading-none text-zinc-300">
             {post.dateAdded}
           </time>
-          <h3 class="text-lg font-semibold text-zinc-50">
+          <div class="border-l-2 border-gray-400 border- ml-[-1rem] pl-4 ">
+            <h3 class="text-lg font-semibold text-zinc-50">
             {post.title}
           </h3>
           <p class="mb-2 text-sm font-normal text-zinc-300 snap-center">
            {post.brief}
           </p>
           <a href={import.meta.env.BLOG_URL + post.slug + "?utm_source=personalSite"} target="_blank" class="btn btn-primary btn-xs">
-            
             Read more
           </a>
+          </div>
         </li>
       ))
     }
