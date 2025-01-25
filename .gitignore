@@ -20,5 +20,5 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-/_blogBackup
-
+# jetbrains setting folder
+.idea/
