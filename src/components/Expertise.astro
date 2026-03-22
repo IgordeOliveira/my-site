@@ -1,0 +1,41 @@
+---
+import { Server, Bot, Rocket } from 'lucide-astro';
+
+const skills = [
+  {
+    Icon: Server,
+    title: 'Backend Engineering',
+    description:
+      'Robust server-side logic using Node.js, Laravel, and Java. Specializing in high-concurrency payment processing and data integrity.',
+  },
+  {
+    Icon: Bot,
+    title: 'Web Scraping & Automation',
+    description:
+      'Custom data extraction pipelines and automated workflows designed for complex, dynamic web environments and legacy system integration.',
+  },
+  {
+    Icon: Rocket,
+    title: 'DevOps & Deployment',
+    description:
+      'CI/CD pipelines with GitHub Actions and Docker. Experience deploying to VPS, cloud environments, and managed platforms—with monitoring via Sentry and structured logging.',
+  },
+];
+---
+
+<section class="space-y-6" id="expertise">
+  <h2 class="font-mono text-xs font-bold text-[#94a3b8] uppercase tracking-widest flex items-center">
+    <span class="w-2 h-2 bg-[#4ade80] mr-2"></span> Main Skills
+  </h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-slate-800 p-[1px]">
+    {
+      skills.map(({ Icon, title, description }) => (
+        <div class="bg-[#121417] p-8">
+          <Icon class="text-[#4ade80] mb-4 w-6 h-6" />
+          <h3 class="text-lg font-bold text-white mb-3">{title}</h3>
+          <p class="text-sm text-[#94a3b8] leading-relaxed">{description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

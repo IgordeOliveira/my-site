@@ -1,0 +1,52 @@
+---
+---
+
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch" id="overview">
+  <!-- Profile Card -->
+  <div class="lg:col-span-4 bg-[#142d1e]/20 tech-border p-8 rounded-[2px] flex flex-col items-center justify-center">
+    <div class="relative w-48 h-48 mb-6 p-[3px] bg-linear-to-tr from-[#2d5a3d] to-[#4ade80] rounded-full">
+      <div class="w-full h-full rounded-full overflow-hidden">
+        <img
+          src="/profile.png"
+          alt="Igor Oliveira"
+          class="w-full h-full object-cover scale-[1.12]"
+        />
+      </div>
+    </div>
+    <h1 class="text-2xl font-light text-white mb-1">Igor Oliveira</h1>
+    <p class="text-[#4ade80] font-mono text-sm">Software Developer</p>
+  </div>
+
+  <!-- Bio + Status Cards -->
+  <div class="lg:col-span-8 space-y-6">
+    <div class="bg-[#0a1a0f]/40 tech-border p-8 rounded-[2px] relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-4 font-mono text-[80px] leading-none text-[#2d5a3d]/10 pointer-events-none select-none">
+        BUILD
+      </div>
+      <h2 class="font-mono text-xs font-bold text-[#94a3b8] uppercase tracking-widest mb-4 flex items-center">
+        <span class="w-2 h-2 bg-[#4ade80] mr-2"></span> System Bio
+      </h2>
+      <p class="text-xl md:text-2xl text-slate-100 leading-relaxed font-light">
+        I'm a Software Developer focused on <span class="text-[#4ade80]">backend systems, integrations, and payment flows</span>.
+      </p>
+      <p class="mt-6 text-[#94a3b8] leading-relaxed">
+        I build APIs and automation pipelines that connect CRMs, ERPs, and payment gateways—with an eye on resilience, observability, and production readiness.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-[#121417] tech-border p-6 rounded-[2px]">
+        <span class="text-[#4ade80] font-mono text-xs block mb-2">LOCATION_TIMEZONE</span>
+        <span class="text-white text-sm font-light">Vitória, ES, Brazil <span class="text-[#94a3b8]">— UTC-3</span></span>
+      </div>
+      <div class="bg-[#121417] tech-border p-6 rounded-[2px]">
+        <span class="text-[#4ade80] font-mono text-xs block mb-2">CORE_LANGS</span>
+        <div class="flex gap-2 mt-1">
+          <span class="text-xs bg-[#142d1e] text-[#4ade80] px-2 py-0.5 rounded">Java</span>
+          <span class="text-xs bg-[#142d1e] text-[#4ade80] px-2 py-0.5 rounded">JS/TS</span>
+          <span class="text-xs bg-[#142d1e] text-[#4ade80] px-2 py-0.5 rounded">PHP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
