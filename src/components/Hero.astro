@@ -1,42 +1,17 @@
 ---
 import { Image } from 'astro:assets';
+import { phrasesPt, phrasesEn } from '../data/site';
 
 const GITHUB_USERNAME = 'IgordeOliveira';
-
-const phrasesPt = [
-  'identificar oportunidades de automações',
-  'automatizar processos',
-  'backends prontos para a produção',
-  'web scraping (a parte difícil)',
-  'integrações entre HubSpot/Pipedrive/Pipefy',
-  'pipelines de deploy CI/CD',
-  'API para apps mobile',
-];
-
-const phrasesEn = [
-  'identifying automation opportunities',
-  'automating processes',
-  'production-ready backends',
-  'web scraping (the hard part)',
-  'HubSpot / Pipedrive / Pipefy integrations',
-  'CI/CD deployment pipelines',
-  'APIs for mobile apps',
-];
 ---
 
 <main class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
   <!-- Watermark background text -->
   <div class="absolute inset-0 flex flex-col items-center justify-center z-0 opacity-[0.03] select-none pointer-events-none">
-    <h1
-      class="font-bold uppercase text-text-primary whitespace-nowrap"
-      style="font-family: 'Space Grotesk Variable', sans-serif; font-size: 15vw; line-height: 0.8; letter-spacing: -0.05em;"
-    >
+    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
       Software
     </h1>
-    <h1
-      class="font-bold uppercase text-text-primary whitespace-nowrap"
-      style="font-family: 'Space Grotesk Variable', sans-serif; font-size: 15vw; line-height: 0.8; letter-spacing: -0.05em;"
-    >
+    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
       Developer
     </h1>
   </div>
@@ -64,16 +39,14 @@ const phrasesEn = [
       <!-- Name -->
       <div class="mb-3 flex flex-col items-center md:items-start">
         <p
-          class="text-base md:text-lg font-medium text-text-muted tracking-wide"
-          style="font-family: 'Space Grotesk Variable', sans-serif;"
+          class="text-base md:text-lg font-medium text-text-muted tracking-wide font-headline"
           data-pt="Olá, sou"
           data-en="Hi, I'm"
         >
           Olá, sou
         </p>
         <h2
-          class="text-3xl md:text-5xl font-bold tracking-tighter text-text-primary leading-tight"
-          style="font-family: 'Space Grotesk Variable', sans-serif;"
+          class="text-3xl md:text-5xl font-bold tracking-tighter text-text-primary leading-tight font-headline"
           data-pt="Igor Oliveira"
           data-en="Igor Oliveira"
         >
@@ -93,8 +66,9 @@ const phrasesEn = [
         <div class="overflow-hidden h-[1.4em] text-xl md:text-2xl w-full">
           <span
             id="text-roller"
-            class="block font-semibold text-tertiary tracking-tight leading-[1.4] whitespace-nowrap"
-            style="font-family: 'Space Grotesk Variable', sans-serif;"
+            class="block font-semibold text-tertiary tracking-tight leading-[1.4] whitespace-nowrap font-headline"
+            data-phrases-pt={JSON.stringify(phrasesPt)}
+            data-phrases-en={JSON.stringify(phrasesEn)}
           ></span>
         </div>
       </div>
@@ -103,6 +77,12 @@ const phrasesEn = [
 </main>
 
 <style>
+  .watermark-text {
+    font-size: 15vw;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+  }
+
   @keyframes roll-in {
     0%   { transform: translateY(110%); opacity: 0; }
     14%  { transform: translateY(0);    opacity: 1; }
@@ -125,9 +105,11 @@ const phrasesEn = [
   }
 </style>
 
-<script define:vars={{ phrasesPt, phrasesEn }}>
-  const roller = document.getElementById('text-roller');
-  const phrases = { pt: phrasesPt, en: phrasesEn };
+<script>
+  const roller = document.getElementById('text-roller') as HTMLElement;
+  const phrasesPt = JSON.parse(roller.dataset.phrasesPt ?? '[]') as string[];
+  const phrasesEn = JSON.parse(roller.dataset.phrasesEn ?? '[]') as string[];
+  const phrases: Record<string, string[]> = { pt: phrasesPt, en: phrasesEn };
 
   let currentLang = (localStorage.getItem('lang') ?? 'pt');
   let index = 0;
@@ -146,7 +128,7 @@ const phrasesEn = [
   roller.addEventListener('animationend', showNext);
 
   window.addEventListener('langchange', (e) => {
-    currentLang = e.detail.lang;
+    currentLang = (e as CustomEvent<{ lang: string }>).detail.lang;
     index = 0;
   });
 </script>

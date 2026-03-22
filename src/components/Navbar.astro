@@ -1,22 +1,17 @@
 ---
 import { Moon, Sun } from 'lucide-astro';
-
-const navLinks = [
-  { label: 'GitHub', href: 'https://github.com/IgordeOliveira', external: true },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/igordeoliveira', external: true },
-  { label: 'Email', href: 'mailto:igordeeoliveira@gmail.com', external: false },
-];
+import { navLinks } from '../data/site';
 ---
 
 <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md transition-colors duration-300">
-  <div class="max-w-[1100px] mx-auto flex justify-between items-center px-8 py-6">
-    <div class="text-2xl font-bold tracking-tighter text-text-primary" style="font-family: 'Space Grotesk Variable', sans-serif;">
+  <div class="container-content flex justify-between items-center py-6">
+    <div class="text-2xl font-bold tracking-tighter text-text-primary font-headline">
       IO.
     </div>
 
     <div class="flex items-center gap-6">
       <!-- Desktop nav links -->
-      <div class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase" style="font-family: 'Space Grotesk Variable', sans-serif;">
+      <div class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-headline">
         {navLinks.map((link) => (
           <a
             href={link.href}
@@ -34,8 +29,7 @@ const navLinks = [
         <button
           id="lang-toggle"
           aria-label="Toggle language"
-          class="relative flex items-center h-8 rounded-full border border-outline-variant bg-surface-mid px-1 gap-0 transition-colors duration-300 hover:border-text-muted"
-          style="font-family: 'Space Grotesk Variable', sans-serif;"
+          class="relative flex items-center h-8 rounded-full border border-outline-variant bg-surface-mid px-1 gap-0 transition-colors duration-300 hover:border-text-muted font-headline"
         >
           <span
             id="lang-indicator"
@@ -84,7 +78,7 @@ const navLinks = [
     id="mobile-menu"
     class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-surface/95 backdrop-blur-md border-t border-outline-variant/30"
   >
-    <div class="max-w-[1100px] mx-auto px-8 py-4 flex flex-col gap-4" style="font-family: 'Space Grotesk Variable', sans-serif;">
+    <div class="container-content flex flex-col gap-4 py-4 font-headline">
       {navLinks.map((link) => (
         <a
           href={link.href}

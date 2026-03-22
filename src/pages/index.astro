@@ -3,14 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Footer from '../components/Footer.astro';
+import BackgroundOrbs from '../components/BackgroundOrbs.astro';
 ---
 
 <Layout>
   <Navbar />
   <Hero />
   <Footer />
-
-  <!-- Decorative blur orbs -->
-  <div class="fixed top-1/4 -left-20 w-96 h-96 bg-tertiary/5 rounded-full blur-[120px] pointer-events-none"></div>
-  <div class="fixed bottom-1/4 -right-20 w-96 h-96 bg-text-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <BackgroundOrbs />
 </Layout>
