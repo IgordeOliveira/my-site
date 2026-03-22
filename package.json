@@ -11,10 +11,10 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/space-grotesk": "^5.2.10",
-    "@tailwindcss/vite": "^4.2.1",
-    "astro": "^6.0.4",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.8",
     "astro-typewriter": "^1.2.0",
     "lucide-astro": "^0.556.0",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.2"
   }
 }
