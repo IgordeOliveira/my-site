@@ -63,13 +63,37 @@ const GITHUB_USERNAME = 'IgordeOliveira';
         >
           Expertise
         </p>
-        <div class="overflow-hidden h-[1.4em] text-xl md:text-2xl w-full">
-          <span
-            id="text-roller"
-            class="block font-semibold text-tertiary tracking-tight leading-[1.4] whitespace-nowrap font-headline"
-            data-phrases-pt={JSON.stringify(phrasesPt)}
-            data-phrases-en={JSON.stringify(phrasesEn)}
-          ></span>
+        <div id="expertise-wrapper" class="relative group cursor-default">
+          <div class="overflow-hidden h-[1.4em] text-xl md:text-2xl w-full group-hover:opacity-0 transition-opacity duration-150">
+            <span
+              id="text-roller"
+              class="block font-semibold text-tertiary tracking-tight leading-[1.4] whitespace-nowrap font-headline"
+              data-phrases-pt={JSON.stringify(phrasesPt)}
+              data-phrases-en={JSON.stringify(phrasesEn)}
+            ></span>
+          </div>
+
+          <!-- Static list on hover -->
+          <div
+            id="expertise-list"
+            class="absolute left-0 top-0 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-150 z-20"
+          >
+            <ul
+              class="flex flex-col gap-[0.35em] text-left"
+              data-phrases-pt={JSON.stringify(phrasesPt)}
+              data-phrases-en={JSON.stringify(phrasesEn)}
+            >
+              {phrasesPt.map((phrase, i) => (
+                <li
+                  class="text-sm md:text-base font-semibold text-tertiary font-headline leading-snug whitespace-nowrap expertise-item"
+                  data-index={i}
+                  style={`--i: ${i}`}
+                >
+                  {phrase}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -103,32 +127,74 @@ const GITHUB_USERNAME = 'IgordeOliveira';
   #text-roller.rolling {
     animation: roll-in 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
+
+  .expertise-item {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  #expertise-wrapper:hover .expertise-item {
+    animation: item-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--i) * 45ms);
+  }
+
+  @keyframes item-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
 <script>
   const roller = document.getElementById('text-roller') as HTMLElement;
+  const wrapper = document.getElementById('expertise-wrapper') as HTMLElement;
+  const expertiseList = document.getElementById('expertise-list') as HTMLElement;
+  const listItems = expertiseList.querySelectorAll<HTMLElement>('.expertise-item');
+
   const phrasesPt = JSON.parse(roller.dataset.phrasesPt ?? '[]') as string[];
   const phrasesEn = JSON.parse(roller.dataset.phrasesEn ?? '[]') as string[];
   const phrases: Record<string, string[]> = { pt: phrasesPt, en: phrasesEn };
 
   let currentLang = (localStorage.getItem('lang') ?? 'pt');
   let index = 0;
+  let paused = false;
+
+  function updateStaticList() {
+    const list = phrases[currentLang];
+    listItems.forEach((item, i) => {
+      item.textContent = list[i] ?? '';
+    });
+  }
 
   function showNext() {
+    if (paused) return;
     const list = phrases[currentLang];
     roller.textContent = list[index % list.length];
     index++;
 
     roller.classList.remove('rolling');
-    void roller.offsetWidth; // force reflow to restart animation
+    void roller.offsetWidth;
     roller.classList.add('rolling');
   }
 
+  updateStaticList();
   showNext();
   roller.addEventListener('animationend', showNext);
+
+  wrapper.addEventListener('mouseenter', () => {
+    paused = true;
+    roller.classList.remove('rolling');
+  });
+
+  wrapper.addEventListener('mouseleave', () => {
+    paused = false;
+    showNext();
+  });
 
   window.addEventListener('langchange', (e) => {
     currentLang = (e as CustomEvent<{ lang: string }>).detail.lang;
     index = 0;
+    updateStaticList();
   });
 </script>
