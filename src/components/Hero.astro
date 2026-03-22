@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import { phrasesPt, phrasesEn } from '../data/site';
+
+const GITHUB_USERNAME = 'IgordeOliveira';
+---
+
+<main class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+  <!-- Watermark background text -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center z-0 opacity-[0.03] select-none pointer-events-none">
+    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
+      Software
+    </h1>
+    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
+      Developer
+    </h1>
+  </div>
+
+  <!-- Central Identity Card -->
+  <div class="relative z-10 w-full flex flex-col md:flex-row items-center gap-8 md:gap-12 px-6 text-center md:text-left md:max-w-3xl">
+    <!-- Profile photo -->
+    <div class="relative shrink-0">
+      <div class="photo-pulse absolute inset-0 rounded-full"></div>
+      <div class="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden ring-2 ring-text-primary/30">
+        <Image
+          src={`https://avatars.githubusercontent.com/${GITHUB_USERNAME}`}
+          alt="Igor Oliveira"
+          width={192}
+          height={192}
+          loading="eager"
+          fetchpriority="high"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+
+    <!-- Text block -->
+    <div class="flex flex-col items-center md:items-start w-full md:flex-1 min-w-0">
+      <!-- Name -->
+      <div class="mb-3 flex flex-col items-center md:items-start">
+        <p
+          class="text-base md:text-lg font-medium text-text-muted tracking-wide font-headline"
+          data-pt="Olá, sou"
+          data-en="Hi, I'm"
+        >
+          Olá, sou
+        </p>
+        <h2
+          class="text-3xl md:text-5xl font-bold tracking-tighter text-text-primary leading-tight font-headline"
+          data-pt="Igor Oliveira"
+          data-en="Igor Oliveira"
+        >
+          Igor Oliveira
+        </h2>
+      </div>
+
+      <!-- Subtitle -->
+      <div class="flex flex-col items-center md:items-start gap-1">
+        <p
+          class="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-text-muted"
+          data-pt="Expertise"
+          data-en="Expertise"
+        >
+          Expertise
+        </p>
+        <div class="overflow-hidden h-[1.4em] text-xl md:text-2xl w-full">
+          <span
+            id="text-roller"
+            class="block font-semibold text-tertiary tracking-tight leading-[1.4] whitespace-nowrap font-headline"
+            data-phrases-pt={JSON.stringify(phrasesPt)}
+            data-phrases-en={JSON.stringify(phrasesEn)}
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+  .watermark-text {
+    font-size: 15vw;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+  }
+
+  @keyframes roll-in {
+    0%   { transform: translateY(110%); opacity: 0; }
+    14%  { transform: translateY(0);    opacity: 1; }
+    82%  { transform: translateY(0);    opacity: 1; }
+    100% { transform: translateY(-110%); opacity: 0; }
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-text-primary) 20%, transparent); }
+    50%       { box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-text-primary) 8%, transparent); }
+  }
+
+  .photo-pulse {
+    animation: pulse-ring 3s ease-in-out infinite;
+    border-radius: 9999px;
+  }
+
+  #text-roller.rolling {
+    animation: roll-in 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+</style>
+
+<script>
+  const roller = document.getElementById('text-roller') as HTMLElement;
+  const phrasesPt = JSON.parse(roller.dataset.phrasesPt ?? '[]') as string[];
+  const phrasesEn = JSON.parse(roller.dataset.phrasesEn ?? '[]') as string[];
+  const phrases: Record<string, string[]> = { pt: phrasesPt, en: phrasesEn };
+
+  let currentLang = (localStorage.getItem('lang') ?? 'pt');
+  let index = 0;
+
+  function showNext() {
+    const list = phrases[currentLang];
+    roller.textContent = list[index % list.length];
+    index++;
+
+    roller.classList.remove('rolling');
+    void roller.offsetWidth; // force reflow to restart animation
+    roller.classList.add('rolling');
+  }
+
+  showNext();
+  roller.addEventListener('animationend', showNext);
+
+  window.addEventListener('langchange', (e) => {
+    currentLang = (e as CustomEvent<{ lang: string }>).detail.lang;
+    index = 0;
+  });
+</script>

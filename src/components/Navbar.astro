@@ -1,0 +1,173 @@
+---
+import { Moon, Sun } from 'lucide-astro';
+import { navLinks } from '../data/site';
+---
+
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md transition-colors duration-300">
+  <div class="container-content flex justify-between items-center py-6">
+    <div class="text-2xl font-bold tracking-tighter text-text-primary font-headline">
+      IO.
+    </div>
+
+    <div class="flex items-center gap-6">
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-8 text-sm tracking-wider uppercase font-headline">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            target={link.external ? '_blank' : undefined}
+            rel={link.external ? 'noopener noreferrer' : undefined}
+            class="text-text-muted hover:text-tertiary transition-colors duration-300"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Language toggle -->
+        <button
+          id="lang-toggle"
+          aria-label="Toggle language"
+          class="relative flex items-center h-8 rounded-full border border-outline-variant bg-surface-mid px-1 gap-0 transition-colors duration-300 hover:border-text-muted font-headline"
+        >
+          <span
+            id="lang-indicator"
+            class="absolute h-6 w-[2.1rem] rounded-full bg-tertiary/20 border border-tertiary/40 transition-all duration-300"
+            style="left: 4px;"
+          ></span>
+          <span id="lang-pt" class="relative z-10 text-xs font-semibold tracking-widest uppercase px-2 py-0.5 transition-colors duration-200 text-text-primary">PT</span>
+          <span id="lang-en" class="relative z-10 text-xs font-semibold tracking-widest uppercase px-2 py-0.5 transition-colors duration-200 text-text-muted">EN</span>
+        </button>
+
+        <!-- Theme toggle -->
+        <button
+          id="theme-toggle"
+          aria-label="Toggle theme"
+          class="relative flex items-center h-8 w-[3.6rem] rounded-full border border-outline-variant bg-surface-mid px-1 transition-colors duration-300 hover:border-text-muted"
+        >
+          <span
+            id="theme-indicator"
+            class="absolute h-6 w-6 rounded-full bg-tertiary/20 border border-tertiary/40 transition-all duration-300 flex items-center justify-center"
+            style="left: 4px;"
+          ></span>
+          <span id="icon-moon" class="relative z-10 flex items-center justify-center w-6 h-6 text-text-primary transition-colors duration-200">
+            <Moon size={14} />
+          </span>
+          <span id="icon-sun" class="relative z-10 flex items-center justify-center w-6 h-6 text-text-muted transition-colors duration-200">
+            <Sun size={14} />
+          </span>
+        </button>
+
+        <!-- Mobile hamburger -->
+        <button
+          id="mobile-menu-toggle"
+          aria-label="Toggle menu"
+          class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] group"
+        >
+          <span id="ham-top" class="block w-5 h-[1.5px] bg-text-primary transition-all duration-300 origin-center"></span>
+          <span id="ham-mid" class="block w-5 h-[1.5px] bg-text-primary transition-all duration-300"></span>
+          <span id="ham-bot" class="block w-5 h-[1.5px] bg-text-primary transition-all duration-300 origin-center"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile dropdown menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-surface/95 backdrop-blur-md border-t border-outline-variant/30"
+  >
+    <div class="container-content flex flex-col gap-4 py-4 font-headline">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          class="text-sm tracking-wider uppercase text-text-muted hover:text-tertiary transition-colors duration-300 py-1"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  // ── Theme toggle ──────────────────────────────────────────────
+  const themeToggle   = document.getElementById('theme-toggle')!;
+  const themeIndicator = document.getElementById('theme-indicator')!;
+  const iconMoon      = document.getElementById('icon-moon')!;
+  const iconSun       = document.getElementById('icon-sun')!;
+
+  function applyTheme(isLight: boolean) {
+    document.documentElement.classList.toggle('light', isLight);
+    // Indicator: left pos when dark=4px (moon side), light=calc(100%-28px) (sun side)
+    themeIndicator.style.left = isLight ? 'calc(100% - 28px)' : '4px';
+    iconMoon.classList.toggle('text-text-primary', !isLight);
+    iconMoon.classList.toggle('text-text-muted',    isLight);
+    iconSun.classList.toggle('text-text-primary',   isLight);
+    iconSun.classList.toggle('text-text-muted',    !isLight);
+  }
+
+  applyTheme(document.documentElement.classList.contains('light'));
+
+  themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    applyTheme(isLight);
+  });
+
+  // ── Language toggle ───────────────────────────────────────────
+  const langToggle    = document.getElementById('lang-toggle')!;
+  const langIndicator = document.getElementById('lang-indicator')!;
+  const labelPt       = document.getElementById('lang-pt')!;
+  const labelEn       = document.getElementById('lang-en')!;
+
+  let currentLang = (localStorage.getItem('lang') ?? 'pt') as 'pt' | 'en';
+
+  function applyLang(lang: 'pt' | 'en') {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+
+    const isPt = lang === 'pt';
+    // Slide indicator
+    langIndicator.style.left = isPt ? '4px' : 'calc(100% - 38px)';
+    // Label colours
+    labelPt.classList.toggle('text-text-primary', isPt);
+    labelPt.classList.toggle('text-text-muted',  !isPt);
+    labelEn.classList.toggle('text-text-primary', !isPt);
+    labelEn.classList.toggle('text-text-muted',   isPt);
+
+    // Swap translatable content
+    document.querySelectorAll<HTMLElement>('[data-pt][data-en]').forEach((el) => {
+      el.textContent = lang === 'pt' ? (el.dataset.pt ?? '') : (el.dataset.en ?? '');
+    });
+
+    window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+  }
+
+  applyLang(currentLang);
+
+  langToggle.addEventListener('click', () => {
+    applyLang(currentLang === 'pt' ? 'en' : 'pt');
+  });
+
+  // ── Mobile menu toggle ────────────────────────────────────────
+  const mobileToggle = document.getElementById('mobile-menu-toggle')!;
+  const mobileMenu   = document.getElementById('mobile-menu')!;
+  const hamTop       = document.getElementById('ham-top')!;
+  const hamMid       = document.getElementById('ham-mid')!;
+  const hamBot       = document.getElementById('ham-bot')!;
+
+  let menuOpen = false;
+
+  mobileToggle.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.style.maxHeight = menuOpen ? `${mobileMenu.scrollHeight}px` : '0px';
+    // Animate to X
+    hamTop.style.transform = menuOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+    hamMid.style.opacity   = menuOpen ? '0' : '1';
+    hamBot.style.transform = menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+  });
+</script>

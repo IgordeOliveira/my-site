@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<footer class="fixed bottom-0 w-full py-12 px-8 z-50 bg-transparent pointer-events-none">
+  <div class="container-content flex flex-row justify-between items-end md:items-center gap-4 pointer-events-auto">
+    <div
+      class="text-[0.75rem] uppercase tracking-[0.05em] font-medium text-text-primary flex items-center gap-2 font-sans"
+    >
+      <span class="w-8 h-[1px] bg-outline-variant hidden md:block self-start mt-[0.45rem]"></span>
+      <span class="flex flex-col gap-0.5">
+        <span class="flex items-center gap-1.5">
+          <span data-pt="Localizado em Vitória, ES, Brasil" data-en="Based in Vitória, ES, Brazil">Based in Vitória, ES, Brazil</span>
+          <Image src="https://flagcdn.com/br.svg" alt="Brazil" width={18} height={13} loading="eager" fetchpriority="high" class="inline-block rounded-[2px]" />
+        </span>
+        <span data-pt="Atualmente @ Trustly Americas" data-en="Currently @ Trustly Americas">Currently @ Trustly Americas</span>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-2 text-[0.75rem] uppercase tracking-[0.05em] font-sans">
+      <a
+        href="https://github.com/IgordeOliveira/my-site"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-muted hover:text-tertiary transition-colors duration-300 font-medium flex flex-col gap-0.5 text-right"
+      >
+        <span data-pt="Feito com Astro" data-en="Built with Astro">Built with Astro</span>
+        <span data-pt="Repositório" data-en="Source">Repo</span>
+      </a>
+      <span class="w-8 h-[1px] bg-outline-variant hidden md:block self-start mt-[0.45rem]"></span>
+    </div>
+  </div>
+</footer>
