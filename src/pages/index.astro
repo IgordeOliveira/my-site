@@ -4,9 +4,10 @@ import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Footer from '../components/Footer.astro';
 import BackgroundOrbs from '../components/BackgroundOrbs.astro';
+import { defaultSeo } from '../data/seo';
 ---
 
-<Layout>
+<Layout title={defaultSeo.title} description={defaultSeo.description}>
   <Navbar />
   <Hero />
   <Footer />

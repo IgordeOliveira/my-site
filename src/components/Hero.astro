@@ -6,14 +6,17 @@ const GITHUB_USERNAME = 'IgordeOliveira';
 ---
 
 <main class="relative h-screen w-full flex flex-col items-center justify-start pt-32 md:justify-center md:pt-0 overflow-hidden">
-  <!-- Watermark background text -->
-  <div class="absolute inset-0 flex flex-col items-center justify-center z-0 opacity-[0.03] select-none pointer-events-none">
-    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
+  <!-- Watermark background text (decorative — not headings for SEO) -->
+  <div
+    class="absolute inset-0 flex flex-col items-center justify-center z-0 opacity-[0.03] select-none pointer-events-none"
+    aria-hidden="true"
+  >
+    <div class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
       Software
-    </h1>
-    <h1 class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
+    </div>
+    <div class="watermark-text font-bold uppercase text-text-primary whitespace-nowrap font-headline">
       Developer
-    </h1>
+    </div>
   </div>
 
   <!-- Central Identity Card -->
@@ -45,13 +48,13 @@ const GITHUB_USERNAME = 'IgordeOliveira';
         >
           Olá, sou
         </p>
-        <h2
+        <h1
           class="text-3xl md:text-5xl font-bold tracking-tighter text-text-primary leading-tight font-headline"
           data-pt="Igor Oliveira"
           data-en="Igor Oliveira"
         >
           Igor Oliveira
-        </h2>
+        </h1>
       </div>
 
       <!-- Subtitle -->

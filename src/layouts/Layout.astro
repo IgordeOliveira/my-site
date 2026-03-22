@@ -1,15 +1,23 @@
 ---
 import { ThemeScript } from 'astro-theme-toggle/components';
+import Seo from '../components/Seo.astro';
+import { defaultSeo } from '../data/seo';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  canonicalPath?: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 const {
-  title = 'Igor Oliveira | Software Developer',
-  description = 'Software developer specializing in automation, production-ready backends, and integrations.',
+  title = defaultSeo.title,
+  description = defaultSeo.description,
+  canonicalPath,
+  image,
+  imageAlt,
 } = Astro.props;
 ---
 
@@ -19,10 +27,14 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <Seo
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      image={image}
+      imageAlt={imageAlt}
+    />
     <!-- Migrate legacy key so preference survives switching to astro-theme-toggle -->
     <script is:inline>
       (function () {

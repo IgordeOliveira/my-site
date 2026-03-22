@@ -1,0 +1,52 @@
+---
+import { defaultSeo, ogImageUrl } from '../data/seo';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Override pathname for canonical / og:url (default: current path) */
+  canonicalPath?: string;
+  /** Absolute URL or path relative to site root */
+  image?: string;
+  imageAlt?: string;
+}
+
+const {
+  title = defaultSeo.title,
+  description = defaultSeo.description,
+  canonicalPath,
+  image,
+  imageAlt = defaultSeo.imageAlt,
+} = Astro.props;
+
+const siteBase = Astro.site ?? new URL('http://localhost:4321');
+const path = canonicalPath ?? Astro.url.pathname;
+const canonicalURL = new URL(path, siteBase);
+const pageURL = canonicalURL.href;
+
+const ogImage =
+  image != null
+    ? image.startsWith('http')
+      ? image
+      : new URL(image, siteBase).href
+    : ogImageUrl;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.href} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={pageURL} />
+<meta property="og:type" content={defaultSeo.ogType} />
+<meta property="og:locale" content={defaultSeo.locale} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="sitemap" href="/sitemap-index.xml" />
