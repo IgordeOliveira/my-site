@@ -9,6 +9,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   image: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'flagcdn.com'],
   },
 });
