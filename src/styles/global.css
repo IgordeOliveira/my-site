@@ -37,11 +37,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* astro-typewriter cursor color */
-#typewriter-pt::part(typewriter)::after,
-#typewriter-en::part(typewriter)::after {
-  background: var(--color-tertiary);
-}
 
 ::selection {
   background-color: #005bc2;

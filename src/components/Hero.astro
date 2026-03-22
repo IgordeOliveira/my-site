@@ -1,27 +1,26 @@
 ---
 import { Image } from 'astro:assets';
-import Typewriter from 'astro-typewriter';
 
 const GITHUB_USERNAME = 'IgordeOliveira';
 
 const phrasesPt = [
   'identificar oportunidades de automações',
-  'processos automatizados através de integrações',
+  'automatizar processos',
   'backends prontos para a produção',
   'web scraping (a parte difícil)',
-  'integrações entre HubSpot/Pipedrive/Pipefy ou qualquer outro',
+  'integrações entre HubSpot/Pipedrive/Pipefy',
   'pipelines de deploy CI/CD',
   'API para apps mobiles',
 ];
 
 const phrasesEn = [
-  'I build CI/CD deployment pipelines',
-  'I automate processes through integrations',
-  'Production-ready backends',
-  'Extensive experience with Laravel',
-  'I identify automation opportunities',
-  'Web Scraping (the hard part)',
-  'HubSpot, Pipedrive or any other connected',
+  'identifying automation opportunities',
+  'automating processes',
+  'production-ready backends',
+  'web scraping (the hard part)',
+  'HubSpot / Pipedrive / Pipefy integrations',
+  'CI/CD deployment pipelines',
+  'APIs for mobile apps',
 ];
 ---
 
@@ -80,41 +79,55 @@ const phrasesEn = [
       >
         Expertise
       </p>
-      <p class="text-xl md:text-3xl font-semibold text-tertiary tracking-tight" style="font-family: 'Space Grotesk Variable', sans-serif;">
-        <Typewriter
-          id="typewriter-pt"
-          messages={phrasesPt}
-          writeSpeed={60}
-          deleteSpeed={32}
-          waitWritten={2200}
-          waitDeleted={450}
-        />
-        <Typewriter
-          id="typewriter-en"
-          messages={phrasesEn}
-          writeSpeed={60}
-          deleteSpeed={32}
-          waitWritten={2200}
-          waitDeleted={450}
-          style="display: none"
-        />
-      </p>
+      <div
+        class="overflow-hidden"
+        style="height: 1.7em;"
+      >
+        <span
+          id="text-roller"
+          class="block text-xl md:text-3xl font-semibold text-tertiary tracking-tight"
+          style="font-family: 'Space Grotesk Variable', sans-serif;"
+        ></span>
+      </div>
     </div>
   </div>
 </main>
 
-<script>
-  const twPt = document.getElementById('typewriter-pt')!;
-  const twEn = document.getElementById('typewriter-en')!;
-
-  function applyTypewriterLang(lang: 'pt' | 'en') {
-    twPt.style.display = lang === 'pt' ? '' : 'none';
-    twEn.style.display = lang === 'en' ? '' : 'none';
+<style>
+  @keyframes roll-in {
+    0%   { transform: translateY(110%); opacity: 0; }
+    14%  { transform: translateY(0);    opacity: 1; }
+    82%  { transform: translateY(0);    opacity: 1; }
+    100% { transform: translateY(-110%); opacity: 0; }
   }
 
-  applyTypewriterLang((localStorage.getItem('lang') as 'pt' | 'en') ?? 'pt');
+  #text-roller.rolling {
+    animation: roll-in 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+</style>
 
-  window.addEventListener('langchange', (e: Event) => {
-    applyTypewriterLang((e as CustomEvent<{ lang: 'pt' | 'en' }>).detail.lang);
+<script define:vars={{ phrasesPt, phrasesEn }}>
+  const roller = document.getElementById('text-roller');
+  const phrases = { pt: phrasesPt, en: phrasesEn };
+
+  let currentLang = (localStorage.getItem('lang') ?? 'pt');
+  let index = 0;
+
+  function showNext() {
+    const list = phrases[currentLang];
+    roller.textContent = list[index % list.length];
+    index++;
+
+    roller.classList.remove('rolling');
+    void roller.offsetWidth; // force reflow to restart animation
+    roller.classList.add('rolling');
+  }
+
+  showNext();
+  roller.addEventListener('animationend', showNext);
+
+  window.addEventListener('langchange', (e) => {
+    currentLang = e.detail.lang;
+    index = 0;
   });
 </script>
