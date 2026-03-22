@@ -1,22 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Sidebar from '../components/Sidebar.astro';
-import Overview from '../components/Overview.astro';
-import Expertise from '../components/Expertise.astro';
-import Projects from '../components/Projects.astro';
-import Contact from '../components/Contact.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
-  <div class="min-h-screen flex flex-col md:flex-row">
-    <Sidebar />
-    <main class="flex-1 overflow-y-auto">
-      <div class="max-w-[1400px] mx-auto p-4 md:p-8 space-y-8">
-        <Overview />
-        <Expertise />
-        <Projects />
-        <Contact />
-      </div>
-    </main>
-  </div>
+  <Navbar />
+  <Hero />
+  <Footer />
+
+  <!-- Decorative blur orbs -->
+  <div class="fixed top-1/4 -left-20 w-96 h-96 bg-tertiary/5 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="fixed bottom-1/4 -right-20 w-96 h-96 bg-text-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
 </Layout>

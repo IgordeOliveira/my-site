@@ -3,25 +3,22 @@ import '../styles/global.css';
 ---
 
 <!doctype html>
-<html class="dark" lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Igor de Oliveira | Web Software Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
+    <title>Igor Oliveira | Software Developer</title>
+    <!-- Anti-flash: apply theme before first paint -->
+    <script is:inline>
+      const stored = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = stored ?? (prefersLight ? 'light' : 'dark');
+      document.documentElement.classList.toggle('light', theme === 'light');
+    </script>
   </head>
-  <body class="font-sans antialiased">
+  <body class="font-sans antialiased overflow-hidden h-screen">
     <slot />
   </body>
 </html>
