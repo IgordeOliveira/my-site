@@ -1,4 +1,5 @@
 ---
+import { Toggle } from 'astro-theme-toggle/components';
 import { Moon, Sun } from 'lucide-astro';
 import { navLinks } from '../data/site';
 ---
@@ -6,7 +7,7 @@ import { navLinks } from '../data/site';
 <nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md transition-colors duration-300">
   <div class="container-content flex justify-between items-center py-6">
     <div class="text-2xl font-bold tracking-tighter text-text-primary font-headline">
-      IO.
+      <span class="text-tertiary-bright">I</span>O<span class="text-tertiary-bright">.</span>
     </div>
 
     <div class="flex items-center gap-6">
@@ -28,36 +29,26 @@ import { navLinks } from '../data/site';
         <!-- Language toggle -->
         <button
           id="lang-toggle"
+          data-lang="pt"
           aria-label="Toggle language"
-          class="relative flex items-center h-8 rounded-full border border-outline-variant bg-surface-mid px-1 gap-0 transition-colors duration-300 hover:border-text-muted font-headline"
+          class="flex items-center h-8 rounded-full border border-outline-variant bg-surface-mid px-1 gap-0 transition-colors duration-300 hover:border-text-muted font-headline"
         >
-          <span
-            id="lang-indicator"
-            class="absolute h-6 w-[2.1rem] rounded-full bg-tertiary/20 border border-tertiary/40 transition-all duration-300"
-            style="left: 4px;"
-          ></span>
-          <span id="lang-pt" class="relative z-10 text-xs font-semibold tracking-widest uppercase px-2 py-0.5 transition-colors duration-200 text-text-primary">PT</span>
-          <span id="lang-en" class="relative z-10 text-xs font-semibold tracking-widest uppercase px-2 py-0.5 transition-colors duration-200 text-text-muted">EN</span>
+          <span id="lang-pt" class="text-xs font-semibold tracking-widest uppercase px-2 py-1 rounded-full border border-transparent transition-all duration-300 text-text-primary">PT</span>
+          <span id="lang-en" class="text-xs font-semibold tracking-widest uppercase px-2 py-1 rounded-full border border-transparent transition-all duration-300 text-text-muted">EN</span>
         </button>
 
-        <!-- Theme toggle -->
-        <button
-          id="theme-toggle"
-          aria-label="Toggle theme"
-          class="relative flex items-center h-8 w-[3.6rem] rounded-full border border-outline-variant bg-surface-mid px-1 transition-colors duration-300 hover:border-text-muted"
+        <!-- Theme toggle (ripple animation via astro-theme-toggle) -->
+        <div
+          class="nav-theme-toggle-pill relative size-8 shrink-0 rounded-full border border-outline-variant bg-surface-mid transition-colors duration-300 hover:border-text-muted"
         >
-          <span
-            id="theme-indicator"
-            class="absolute h-6 w-6 rounded-full bg-tertiary/20 border border-tertiary/40 transition-all duration-300 flex items-center justify-center"
-            style="left: 4px;"
-          ></span>
-          <span id="icon-moon" class="relative z-10 flex items-center justify-center w-6 h-6 text-text-primary transition-colors duration-200">
-            <Moon size={14} />
-          </span>
-          <span id="icon-sun" class="relative z-10 flex items-center justify-center w-6 h-6 text-text-muted transition-colors duration-200">
-            <Sun size={14} />
-          </span>
-        </button>
+          <Toggle
+            aria-label="Alternar tema"
+            class="absolute inset-0 size-full text-text-primary [&_svg]:block [&_svg]:shrink-0"
+          >
+            <Sun slot="icon-light" size={14} class="text-text-primary" />
+            <Moon slot="icon-dark" size={14} class="text-text-primary" />
+          </Toggle>
+        </div>
 
         <!-- Mobile hamburger -->
         <button
@@ -93,36 +84,71 @@ import { navLinks } from '../data/site';
   </div>
 </nav>
 
-<script>
-  // ── Theme toggle ──────────────────────────────────────────────
-  const themeToggle   = document.getElementById('theme-toggle')!;
-  const themeIndicator = document.getElementById('theme-indicator')!;
-  const iconMoon      = document.getElementById('icon-moon')!;
-  const iconSun       = document.getElementById('icon-sun')!;
+<style>
+  #lang-toggle[data-lang="pt"] #lang-pt,
+  #lang-toggle[data-lang="en"] #lang-en {
+    background-color: color-mix(in srgb, var(--color-tertiary) 20%, transparent);
+    border-color: color-mix(in srgb, var(--color-tertiary) 40%, transparent);
+  }
+</style>
 
-  function applyTheme(isLight: boolean) {
-    document.documentElement.classList.toggle('light', isLight);
-    // Indicator: left pos when dark=4px (moon side), light=calc(100%-28px) (sun side)
-    themeIndicator.style.left = isLight ? 'calc(100% - 28px)' : '4px';
-    iconMoon.classList.toggle('text-text-primary', !isLight);
-    iconMoon.classList.toggle('text-text-muted',    isLight);
-    iconSun.classList.toggle('text-text-primary',   isLight);
-    iconSun.classList.toggle('text-text-muted',    !isLight);
+<style is:global>
+  /*
+    Visible layer only (keeps sun/moon from stacking).
+    Fill the pill inner box, then center SVG with translate — avoids baseline/text-align drift
+    DevTools often flags `text-align: start` + `vertical-align: baseline` on these nodes.
+  */
+  .nav-theme-toggle-pill > astro-theme-toggle {
+    box-sizing: border-box;
   }
 
-  applyTheme(document.documentElement.classList.contains('light'));
+  .nav-theme-toggle-pill html:not(.dark) astro-theme-toggle .astro-theme-toggle-icon-light {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100%;
+    min-height: 100%;
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    text-align: center;
+    box-sizing: border-box;
+  }
 
-  themeToggle.addEventListener('click', () => {
-    const isLight = document.documentElement.classList.toggle('light');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    applyTheme(isLight);
-  });
+  .nav-theme-toggle-pill html.dark astro-theme-toggle .astro-theme-toggle-icon-dark {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100%;
+    min-height: 100%;
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    text-align: center;
+    box-sizing: border-box;
+  }
 
+  .nav-theme-toggle-pill astro-theme-toggle .astro-theme-toggle-icon-light svg,
+  .nav-theme-toggle-pill astro-theme-toggle .astro-theme-toggle-icon-dark svg {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: block !important;
+    margin: 0 !important;
+    vertical-align: middle;
+  }
+</style>
+
+<script>
   // ── Language toggle ───────────────────────────────────────────
-  const langToggle    = document.getElementById('lang-toggle')!;
-  const langIndicator = document.getElementById('lang-indicator')!;
-  const labelPt       = document.getElementById('lang-pt')!;
-  const labelEn       = document.getElementById('lang-en')!;
+  const langToggle = document.getElementById('lang-toggle')!;
+  const labelPt    = document.getElementById('lang-pt')!;
+  const labelEn    = document.getElementById('lang-en')!;
 
   let currentLang = (localStorage.getItem('lang') ?? 'pt') as 'pt' | 'en';
 
@@ -131,9 +157,7 @@ import { navLinks } from '../data/site';
     localStorage.setItem('lang', lang);
 
     const isPt = lang === 'pt';
-    // Slide indicator
-    langIndicator.style.left = isPt ? '4px' : 'calc(100% - 38px)';
-    // Label colours
+    langToggle.dataset.lang = lang;
     labelPt.classList.toggle('text-text-primary', isPt);
     labelPt.classList.toggle('text-text-muted',  !isPt);
     labelEn.classList.toggle('text-text-primary', !isPt);

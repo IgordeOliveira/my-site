@@ -22,9 +22,10 @@ import { Image } from 'astro:assets';
         href="https://github.com/IgordeOliveira/my-site"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-text-muted hover:text-tertiary transition-colors duration-300 font-medium flex flex-col gap-0.5 text-left md:text-right"
+        class="text-text-muted hover:text-tertiary transition-colors duration-300 font-medium flex flex-row md:flex-col items-center md:items-end gap-1 md:gap-0.5 text-left md:text-right opacity-50 md:opacity-100 hover:opacity-100"
       >
         <span data-pt="Feito com Astro" data-en="Built with Astro">Built with Astro</span>
+        <span class="md:hidden text-text-muted/50">·</span>
         <span data-pt="Repositório" data-en="Source">Repo</span>
       </a>
       <span class="w-8 h-[1px] bg-outline-variant hidden md:block self-start mt-[0.45rem]"></span>

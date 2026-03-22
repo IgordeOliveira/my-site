@@ -1,4 +1,5 @@
 ---
+import { ThemeScript } from 'astro-theme-toggle/components';
 import '../styles/global.css';
 
 interface Props {
@@ -22,13 +23,16 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <!-- Anti-flash: apply theme before first paint -->
+    <!-- Migrate legacy key so preference survives switching to astro-theme-toggle -->
     <script is:inline>
-      const stored = localStorage.getItem('theme');
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      const theme = stored ?? (prefersLight ? 'light' : 'dark');
-      document.documentElement.classList.toggle('light', theme === 'light');
+      (function () {
+        if (localStorage.getItem('theme-toggle') == null && localStorage.getItem('theme')) {
+          var t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') localStorage.setItem('theme-toggle', t);
+        }
+      })();
     </script>
+    <ThemeScript />
   </head>
   <body class="font-sans antialiased overflow-hidden h-screen">
     <slot />
