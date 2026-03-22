@@ -5,13 +5,13 @@ import Typewriter from 'astro-typewriter';
 const GITHUB_USERNAME = 'IgordeOliveira';
 
 const phrasesPt = [
-  'Construo pipelines de deploy CI/CD',
-  'Automatizo processos através de integrações',
-  'Backends prontos para a produção',
-  'Bastante experiência em Laravel',
-  'Identifico oportunidades de automação',
-  'Web Scraping (a parte difícil)',
-  'HubSpot, Pipedrive ou qualquer outro conectado',
+  'identificar oportunidades de automações',
+  'processos automatizados através de integrações',
+  'backends prontos para a produção',
+  'web scraping (a parte difícil)',
+  'integrações entre HubSpot/Pipedrive/Pipefy ou qualquer outro',
+  'pipelines de deploy CI/CD',
+  'API para apps mobiles',
 ];
 
 const phrasesEn = [
@@ -71,9 +71,16 @@ const phrasesEn = [
       Olá, sou Igor Oliveira
     </h2>
 
-    <!-- Subtitle pill -->
-    <div class="flex items-center gap-3 bg-surface-mid backdrop-blur-sm px-6 py-2 rounded-full border border-outline-variant">
-      <p class="text-lg md:text-xl font-light text-text-muted tracking-wide">
+    <!-- Subtitle -->
+    <div class="flex flex-col items-center gap-1 mt-2">
+      <p
+        class="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-text-muted"
+        data-pt="Expertise"
+        data-en="Expertise"
+      >
+        Expertise
+      </p>
+      <p class="text-xl md:text-3xl font-semibold text-tertiary tracking-tight" style="font-family: 'Space Grotesk Variable', sans-serif;">
         <Typewriter
           id="typewriter-pt"
           messages={phrasesPt}
